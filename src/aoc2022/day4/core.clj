@@ -5,26 +5,22 @@
 
 (def input (slurp "src/aoc2022/day4/input.txt"))
 
-(defn ranges [pair]
-  (map (fn [x]
-         (let [str-bounds (str/split x #"-")
-               [a b] (map parse-long str-bounds)]
-           (set (range a (inc b)))))
-       pair))
+(defn range-pairs [pair]
+  (map #(let [[a b] (map parse-long (str/split % #"-"))]
+          (set (range a (inc b))))
+       (str/split pair #",")))
 
-(defn fully-contained? [pair]
-  (let [[a b] (ranges pair)]
-    (or (s/subset? a b) (s/subset? b a))))
+(defn fully-contained? [[a b]]
+  (or (s/subset? a b) (s/subset? b a)))
 
-(defn partly-contained? [pair]
-  (not (empty? (apply s/intersection (ranges pair)))))
+(defn partly-contained? [[a b]]
+  (not (empty? (s/intersection a b))))
 
 (defn contain-count [contain-fn]
   (->> input
        str/split-lines
-       (map #(str/split % #","))
-       (map contain-fn)
-       (filter true?)
+       (map range-pairs)
+       (filter contain-fn)
        count))
 
 (def part-1 (contain-count fully-contained?))
