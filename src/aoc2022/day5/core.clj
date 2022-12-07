@@ -31,7 +31,7 @@
           state))))
 
 (defn top-crates [state]
-  (reduce #(str %1 (first %2)) "" state))
+  (apply str (map first state)))
 
 (def stacks (txt->stacks stacks-txt))
 (def moves (txt->moves moves-txt))
