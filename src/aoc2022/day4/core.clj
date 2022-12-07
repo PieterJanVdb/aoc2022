@@ -1,7 +1,6 @@
 (ns aoc2022.day4.core
   (:require [clojure.string :as str]
-            [clojure.set :as s]
-            [clojure.edn :as edn]))
+            [clojure.set :as s]))
 
 (def input (slurp "src/aoc2022/day4/input.txt"))
 
