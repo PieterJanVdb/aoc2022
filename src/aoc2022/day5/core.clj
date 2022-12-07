@@ -10,7 +10,7 @@
        (map #(str/split % #""))
        (map #(drop 1 %))
        (map #(take-nth 4 %))
-       (apply mapv vector)
+       (apply map vector)
        (map drop-last)
        (mapv (partial filter #(not (str/blank? %))))))
 
